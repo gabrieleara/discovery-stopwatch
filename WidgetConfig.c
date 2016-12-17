@@ -35,20 +35,7 @@ ButtonIcon buttonminus = {
 		picture_minus_button, 0, EVT_MINUS
 };
 
-Text txt = {
-		&Font32x48, White
-};
-
 #define TXT_EL {&Font32x48, White}
-
-/*extern const unsigned char back_hh_mm[3254];
-extern const unsigned char back_hours[3254];
-extern const unsigned char back_minutes[3254];
-extern const unsigned char back_mm_ss[3254];
-extern const unsigned char back_seconds[3254];
-extern const unsigned char back_ss_t[3254];
-extern const unsigned char back_tenths[3254];
-*/
 
 BackText wid_hh_mm = {
 		TXT_EL, back_hh_mm
@@ -96,12 +83,12 @@ const Widget MyWatchScr[NUMWIDGETS] = {
 		{250, 48, 40, 40, BUTTONICON, (void *)&buttonplus},
 		{250, 107, 40, 40, BUTTONICON, (void *)&buttonminus},
 		{100, 0, 100, 52, BUTTONICON, (void *)&buttonswitch},
-		{9, 90, 40, 40, BACKTEXT, (void *)&wid_hours},
-		{79, 90, 40, 40, BACKTEXT, (void *)&wid_minutes},
-		{148, 90, 40, 40, BACKTEXT, (void *)&wid_seconds},
-		{223, 90, 40, 40, BACKTEXT, (void *)&wid_tenths},
-		{60, 90, 40, 40, BACKTEXT, (void *)&wid_hh_mm},
-		{129, 90, 40, 40, BACKTEXT, (void *)&wid_mm_ss},
-		{198, 90, 40, 40, BACKTEXT, (void *)&wid_ss_t},
+		{10, 90, 60, 40, BACKTEXT, (void *)&wid_hours},
+		{80, 90, 60, 40, BACKTEXT, (void *)&wid_minutes},
+		{150, 90, 60, 40, BACKTEXT, (void *)&wid_seconds},
+		{220, 90, 30, 40, BACKTEXT, (void *)&wid_tenths},
+		{60, 90, 20, 40, BACKTEXT, (void *)&wid_hh_mm},
+		{130, 90, 20, 40, BACKTEXT, (void *)&wid_mm_ss},
+		{200, 90, 20, 40, BACKTEXT, (void *)&wid_ss_t},
 };
 

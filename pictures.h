@@ -43,13 +43,13 @@ extern const unsigned char picture_plus_button[3254];
 extern const unsigned char picture_minus_button[3254];
 extern const unsigned char picture_switch_on[10454];
 extern const unsigned char picture_switch_off[10454];
-extern const unsigned char back_hh_mm[3254];
-extern const unsigned char back_hours[3254];
-extern const unsigned char back_minutes[3254];
-extern const unsigned char back_mm_ss[3254];
-extern const unsigned char back_seconds[3254];
-extern const unsigned char back_ss_t[3254];
-extern const unsigned char back_tenths[3254];
+extern const unsigned char back_hh_mm[1654];
+extern const unsigned char back_hours[4854];
+extern const unsigned char back_minutes[4854];
+extern const unsigned char back_mm_ss[1654];
+extern const unsigned char back_seconds[4854];
+extern const unsigned char back_ss_t[1654];
+extern const unsigned char back_tenths[2454];
 
 
 
