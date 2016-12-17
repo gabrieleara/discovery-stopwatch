@@ -29,13 +29,35 @@ boolean_T is_ringing_time = false;
 boolean_T was_ringing = false;
 boolean_T alarm_icon_active = false;
 
+boolean_T partially_obscured_minutes = false;
+boolean_T partially_obscured_seconds = false;
+
+boolean_T was_blinking_h = false;
+
 void init_interface() {
 	DrawInit(MyWatchScr);
+
+	/*
+	LCD_SetTextColor(0);
+	LCD_DrawRect(10, 90, 60, 40);
+	LCD_DrawRect(80, 90, 60, 40);
+	LCD_DrawRect(150, 90, 60, 40);
+	LCD_DrawRect(220, 90, 30, 40);
+	delay(1);
+	LCD_SetTextColor(150);
+	LCD_DrawRect(60, 90, 20, 40);
+	LCD_DrawRect(130, 90, 20, 40);
+	LCD_DrawRect(200, 90, 20, 40);
+
+	*/
+
 	WPrint(&MyWatchScr[WID_SEP_HH_MM], ":");
 
 	DrawOff(&MyWatchScr[WID_SWITCH]);
 	DrawOn(&MyWatchScr[WID_MINUS]);
 	DrawOn(&MyWatchScr[WID_PLUS]);
+
+
 }
 
 void UpdateMode(unsigned char m)
@@ -53,14 +75,19 @@ void UpdateMode(unsigned char m)
 		break;
 	case ARA_MODE_TIME:
 		DrawOff(&MyWatchScr[WID_TIME]);
-		if(m != ARA_MODE_STOPWATCH)
+		if(m != ARA_MODE_STOPWATCH) {
 			WErase(&MyWatchScr[WID_SEP_MM_SS]);
+			partially_obscured_minutes = true;
+		}
 		break;
 	case ARA_MODE_STOPWATCH:
 		DrawOff(&MyWatchScr[WID_STOPWATCH]);
-		if(m != ARA_MODE_TIME)
+		if(m != ARA_MODE_TIME) {
 			WErase(&MyWatchScr[WID_SEP_MM_SS]);
+			partially_obscured_minutes = true;
+		}
 		WErase(&MyWatchScr[WID_SEP_SS_T]);
+		partially_obscured_seconds = true;
 		break;
 	}
 
@@ -151,6 +178,16 @@ void update_interface(uint8_T mode, uint8_T * time, uint8_T * blink, uint8_T is_
 	if (mode != oldmode)
 		UpdateMode(mode);
 
+	if(was_blinking_h && blink[ARA_BLINK_MINUTES]) {
+		blink_counter = 0;
+		was_blinking_h = false;
+	}
+
+	if(!was_blinking_h && blink[ARA_BLINK_HOURS]) {
+		blink_counter = 0;
+		was_blinking_h = true;
+	}
+
 	is_blink_time = blink_counter >= BLINK_TRESHOLD;
 
 	blink_counter = ++blink_counter % BLINK_PERIOD;
@@ -165,16 +202,20 @@ void update_interface(uint8_T mode, uint8_T * time, uint8_T * blink, uint8_T is_
 	if(hours_drawn && ((is_blink_time && blink[ARA_BLINK_HOURS]) || time[ARA_TIME_HOURS] != oh)) {
 		WErase(&MyWatchScr[WID_TIME_HOURS]);
 		hours_drawn = false;
+		if(blink[ARA_BLINK_HOURS])
+			was_blinking_h = true;
 	}
 
-	if(minutes_drawn && ((is_blink_time && blink[ARA_BLINK_MINUTES]) || time[ARA_TIME_MINUTES] != om)) {
+	if(partially_obscured_minutes || (minutes_drawn && ((is_blink_time && blink[ARA_BLINK_MINUTES]) || time[ARA_TIME_MINUTES] != om))) {
 		WErase(&MyWatchScr[WID_TIME_MINS]);
-		minutes_drawn = false;
+		partially_obscured_minutes = minutes_drawn = false;
+		if(blink[ARA_BLINK_MINUTES])
+			was_blinking_h = false;
 	}
 
-	if(seconds_drawn && (!(mode == ARA_MODE_TIME || mode == ARA_MODE_STOPWATCH) || time[ARA_TIME_SECONDS] != os)) {
+	if(partially_obscured_seconds || (seconds_drawn && (!(mode == ARA_MODE_TIME || mode == ARA_MODE_STOPWATCH) || time[ARA_TIME_SECONDS] != os))) {
 		WErase(&MyWatchScr[WID_TIME_SECS]);
-		seconds_drawn = false;
+		partially_obscured_seconds = seconds_drawn = false;
 	}
 
 	if(tenths_drawn && (mode != ARA_MODE_STOPWATCH || time[ARA_TIME_TENTHS] != ot)) {
