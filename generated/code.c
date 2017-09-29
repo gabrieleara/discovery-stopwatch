@@ -46,16 +46,18 @@
 #include "stm32f4_discovery_lcd.h"
 #include "stm32f4xx.h"
 
-#include "STMPE811QTR.h"
-#include "pictures.h"
-#include "Widget.h"
-#include "WidgetConfig.h"
-#include "Touch.h"
-#include "Event.h"
-#include "Stopwatch.h"
-#include "lcd_add.h"
-#include "fonts.h"
-#include "debug.h"
+#include "res/pictures.h"
+
+#include "screen/debug.h"
+
+#include "touch/Widget.h"
+#include "touch/WidgetConfig.h"
+#include "touch/Touch.h"
+#include "touch/Event.h"
+#include "touch/STMPE811QTR.h"
+
+
+#include "simulink/Stopwatch.h"
 
 #include "UI_Handler.h"
 

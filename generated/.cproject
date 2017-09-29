@@ -20,36 +20,39 @@
 							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.1122680064.1722896898" name=""/>
 							<builder buildPath="${ProjName}/Debug" command="${ProjDirPath}/Debug/make_launcher.bat" id="org.eclipse.cdt.build.core.settings.default.builder.34551034" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder">
 								<outputEntries>
-									<entry flags="VALUE_WORKSPACE_PATH" kind="outputPath" name="Debug"/>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Debug"/>
 								</outputEntries>
 							</builder>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.1921579466" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1035701951" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.605911642" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/StopwatchGenAra/Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/pkg&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/contrib&quot;"/>
+									<listOptionValue builtIn="false" value="../StopwatchGenAra/Debug"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/pkg"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/contrib"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.752252684" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1164969212" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1334208171" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/StopwatchGenAra/Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/pkg&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/contrib&quot;"/>
+									<listOptionValue builtIn="false" value="../StopwatchGenAra/Debug"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/pkg"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/contrib"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.439217831" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.47344914" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.478932910" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/StopwatchGenAra/Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/pkg&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${erika_enterprise_location}/contrib&quot;"/>
+									<listOptionValue builtIn="false" value="../StopwatchGenAra/Debug"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/pkg"/>
+									<listOptionValue builtIn="false" value="/usr/share/eclipse/plugins/com.eu.evidence.ee_2.7.0.20160615_1643/ee_files/contrib"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1236207263" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>

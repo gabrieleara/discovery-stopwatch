@@ -51,18 +51,19 @@ CPU mySystem {
 		CPU_DATA = CORTEX_MX {
 			MODEL = M4;
 			APP_SRC = "code.c";
-			APP_SRC = "debug.c";
-			APP_SRC = "Event.c";
-			/*APP_SRC = "fonts.c";*/
-			APP_SRC = "pictures.c";
-			APP_SRC = "Stopwatch.c";
-			APP_SRC = "Touch.c";
-			APP_SRC = "Widget.c";
-			APP_SRC = "WidgetConfig.c";
-			
 			APP_SRC = "UI_Handler.c";
 			
-			APP_SRC = "STMPE811QTR.c";
+			APP_SRC = "res/pictures.c";
+			
+			APP_SRC = "screen/debug.c"; // TODO: remove
+			
+			APP_SRC = "touch/Event.c";
+			APP_SRC = "touch/STMPE811QTR.c";
+			APP_SRC = "touch/Touch.c";
+			APP_SRC = "touch/Widget.c";
+			APP_SRC = "touch/WidgetConfig.c";
+			
+			APP_SRC = "simulink/Stopwatch.c";
 			
 			//COMPILER_TYPE = KEIL;
 			COMPILER_TYPE = GNU; 
