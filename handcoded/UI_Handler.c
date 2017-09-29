@@ -1,5 +1,5 @@
-#include "Widget.h"
-#include "WidgetConfig.h"
+#include "touch/Widget.h"
+#include "touch/WidgetConfig.h"
 #include "UI_Handler.h"
 
 // TODO: ifndef C++
@@ -191,8 +191,6 @@ void update_interface(uint8_T mode, uint8_T * time, uint8_T * blink, uint8_T is_
 	is_blink_time = blink_counter >= BLINK_TRESHOLD;
 
 	blink_counter = ++blink_counter % BLINK_PERIOD;
-
-	// TODO: is_ringing
 
 	update_ringing_interface(is_alarm_active, is_alarm_ringing);
 

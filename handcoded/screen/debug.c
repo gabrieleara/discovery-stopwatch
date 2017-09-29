@@ -6,8 +6,6 @@
  */
 #include "stm32f4_discovery_lcd.h"
 #include <stdio.h>
-#include "Widget.h"
-#include "WidgetConfig.h"
 
 void debuginfo(int id, int a, int b, int c)
 {

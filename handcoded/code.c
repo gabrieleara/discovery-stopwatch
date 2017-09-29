@@ -46,16 +46,19 @@
 #include "stm32f4_discovery_lcd.h"
 #include "stm32f4xx.h"
 
-#include "STMPE811QTR.h"
-#include "pictures.h"
-#include "Widget.h"
-#include "WidgetConfig.h"
-#include "Touch.h"
-#include "Event.h"
-#include "stopwatch.h"
-#include "lcd_add.h"
-#include "fonts.h"
-#include "debug.h"
+#include "res/pictures.h"
+
+#include "screen/debug.h"
+
+#include "touch/Widget.h"
+#include "touch/WidgetConfig.h"
+#include "touch/Touch.h"
+#include "touch/Event.h"
+#include "touch/STMPE811QTR.h"
+
+
+#include "model/stopwatch.h"
+
 #include "UI_Handler.h"
 
 #define FALSE 0
@@ -85,7 +88,7 @@
 #define ARA_BLINK_HOURS			0
 #define ARA_BLINK_MINUTES		1
 
-#include "simple_types.h"
+#include "model/simple_types.h"
 
 uint8_t time[4];
 uint8_t mode;

@@ -8,7 +8,8 @@
 #include "Widget.h"
 #include "WidgetConfig.h"
 #include "Event.h"
-#include "debug.h"
+//#include "../screen/debug.h"
+
 
 unsigned char contains(Widget *w, TPoint *point){
 	if	((point->x >= w->xl) && (point->x <= w->xl + w->xw) &&
