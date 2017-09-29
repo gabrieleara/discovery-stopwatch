@@ -516,13 +516,15 @@ state_p stopwatch_states[STATE_NUM] = {
 	GET_SP(waitingnextact)
 };
 
+state_machine stopwatch_machine;
+
 void stopwatch_init(uint8_t* dmode, uint8_t* dhours, uint8_t* dminutes,
 	uint8_t* dseconds, uint8_t* dtenths, uint8_t* blink_hours,
 	uint8_t* blink_minutes, uint8_t* is_alarm_active, uint8_t* alarm_ringing) {
 	
 	stateid_t roots[3] = {STATE_CONTROL, STATE_TIMECOUNT, STATE_ALARMMANAGE};
 	
-	state_machine_init(stopwatch_states, roots, 3);
+	state_machine_init(&stopwatch_machine, stopwatch_states, roots, 3);
 	
 	*dhours = outputdata.dhours = 0;
 	*dminutes = outputdata.dminutes = 0;
@@ -541,7 +543,7 @@ void stopwatch_step(event_t events, uint8_t* dmode, uint8_t* dhours, uint8_t* dm
 	uint8_t* dtenths, uint8_t* blink_hours, uint8_t* blink_minutes,
 	uint8_t* is_alarm_active, uint8_t* alarm_ringing) {
 	
-	state_machine_step(events);
+	state_machine_step(&stopwatch_machine, events);
 	
 	*dhours = outputdata.dhours;
 	*dminutes = outputdata.dminutes;
