@@ -31,24 +31,24 @@ typedef stateid_t (* default_transition_method)();
  * Defines a simple state, which does not have any child states.
  */
 typedef struct simple_state_s {
-	const stateid_t self;                   // Id of the state
-	const stateid_t superstate;             // Id of the super-state, if no
-	                                        // super-state is there it points to
-	                                        // the top state
-	const void_method enter;                // Pointer to enter method, if any
-	const void_method during;               // Pointer to during method, if any
-	const void_method exit;                 // Pointer to exit method, if any
+    const stateid_t self;                   // Id of the state
+    const stateid_t superstate;             // Id of the super-state, if no
+                                            // super-state is there it points to
+                                            // the top state
+    const void_method enter;                // Pointer to enter method, if any
+    const void_method during;               // Pointer to during method, if any
+    const void_method exit;                 // Pointer to exit method, if any
 
-	const event_t declared_transitions;     // Specifies which events are
-	                                        // handled by the state itself
+    const event_t declared_transitions;     // Specifies which events are
+                                            // handled by the state itself
 
-	const transition_method event_handler;  // The event handler, which acts as
-	                                        // an outgoing transition from the
-	                                        // state
+    const transition_method event_handler;  // The event handler, which acts as
+                                            // an outgoing transition from the
+                                            // state
 
-	const boolean_t is_simple;              // Specifies whether this is a
-	                                        // simple state or an extended one,
-	                                        // see below.
+    const boolean_t is_simple;              // Specifies whether this is a
+                                            // simple state or an extended one,
+                                            // see below.
 } simple_state;
 
 typedef simple_state* state_p;
@@ -56,15 +56,15 @@ typedef simple_state* state_p;
 // Extends the simple state described above by adding the ability of having
 // multiple sub-states.
 typedef struct extended_state_s {
-	const simple_state super;               // Used to mimic inheritance of OO
-	                                        // programming in C
-	const default_transition_method
-	    default_substate;                   // Specifies the transition that has
-	                                        // to be performed when entering the
-	                                        // state to move into the correct
-	                                        // sub-state
+    const simple_state super;               // Used to mimic inheritance of OO
+                                            // programming in C
+    const default_transition_method
+        default_substate;                   // Specifies the transition that has
+                                            // to be performed when entering the
+                                            // state to move into the correct
+                                            // sub-state
 
-	stateid_t current_substate;             // Id of the current sub-state
+    stateid_t current_substate;             // Id of the current sub-state
 } extended_state;
 
 
@@ -194,5 +194,4 @@ extern void state_machine_step(state_machine* machine, event_t events);
 
 
 #endif
-
 

@@ -34,14 +34,10 @@
 #define SET_D_SUBSTATE(sp) (((extended_state *) sp)->current_substate = M_CALL(((extended_state *) sp)->default_substate)())
 
 /*
- * Any state is seen as an extended state, if not specified otherwise.
- */
-typedef extended_state state;
-
-/*
  * Pointer to the current state machine.
  */
 state_machine* CURRENT_MACHINE;
+
 
 //#include "debug.h"
 //#include "string.h" // TODO: remove, only for debug purpose
@@ -90,14 +86,14 @@ void perform_enter(stateid_t i) {
  * top.
  */
 void perform_exit(stateid_t i) {
-    state_p s = GET_STATE(i);
-    void_method m = s->exit;
-
-    if(!s->is_simple)
-        perform_exit(GET_C_SUBSTATE(s));
-
-    if(m != NULL)
-        M_CALL(m)(s);
+	state_p s = GET_STATE(i);
+	void_method m = s->exit;
+	
+	if(!s->is_simple)
+		perform_exit(GET_C_SUBSTATE(s));
+		
+	if(m != NULL)
+		M_CALL(m)(s);
 }
 
 /*
@@ -135,7 +131,6 @@ stateid_t perform_transition(stateid_t i, event_t e) {
 	else
 		return i;
 }
-
 
 
 /*
@@ -179,11 +174,12 @@ void perform_during(stateid_t i, event_t e) {
 	int next_state = i;
 	
 	if(has_transition(i, e) && ((next_state = perform_transition(i, e)) != i)) {
-		// Transition to another state
+	    // Transition to another state
 		
 		if(GET_STATE(next_state)->superstate == i) {
-			// The next state is a child of the current state: current state is
-	        // not exited, only current child is changed
+		    // The next state is a child of the current state: current state is
+		    // not exited, only current child is changed
+
 			perform_during_action(i);
 			
 			if(next_state != GET_C_SUBSTATE(s)) {
@@ -192,6 +188,8 @@ void perform_during(stateid_t i, event_t e) {
 				SET_C_SUBSTATE(s, next_state);
 			
 				perform_enter(next_state);
+			} else {
+				//perform_during(next_state, e);
 			}
 		} else {
 		    // The next state is a sibiling of the current state, so it changes
@@ -207,9 +205,9 @@ void perform_during(stateid_t i, event_t e) {
 			perform_enter(next_state);
 
 			// NOTICE: During action on the new state is performed automatically
-			// when entering by perform_enter. During action on the parent has
-			// already been performed, since during callbacks are called in
-			// order from top to bottom.
+            // when entering by perform_enter. During action on the parent has
+            // already been performed, since during callbacks are called in
+            // order from top to bottom.
 		}
 		return;
 	}
@@ -251,7 +249,7 @@ void perform_during(stateid_t i, event_t e) {
  *
  */
 void state_machine_init(state_machine* machine, state_p* states_pointer,
-        stateid_t* root_states, uint8_t root_states_num) {
+    stateid_t* root_states, uint8_t root_states_num) {
 
     machine->states = states_pointer;
     machine->root_states = root_states;
@@ -272,13 +270,11 @@ void state_machine_init(state_machine* machine, state_p* states_pointer,
  * further information about state machine behavior.
  */
 void state_machine_step(state_machine* machine, event_t events) {
-	int8_t i = 0;
-	CURRENT_MACHINE = machine;
+    CURRENT_MACHINE = machine;
 
-	for(; i < CURRENT_MACHINE->root_states_num; ++i) {
-		perform_during(CURRENT_MACHINE->root_states[i], events);
-	}
-	
+    for(int8_t i = 0; i < CURRENT_MACHINE->root_states_num; ++i) {
+        perform_during(CURRENT_MACHINE->root_states[i], events);
+    }
 }
 
 #undef M_CALL
