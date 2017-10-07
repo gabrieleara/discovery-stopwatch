@@ -138,8 +138,6 @@ TASK(TaskClock)
 	if (IsEvent(EVT_MINUS)) buttons[ARA_BUTTON_MINUS]=1;
 	if (IsEvent(EVT_SWITCH)) buttons[ARA_BUTTON_SWITCH]=1;
 
-	// TODO: other buttons
-
 	Stopwatch_step(
 		&Stopwatch_M,
 		timer_tick,
@@ -186,7 +184,7 @@ int main(void)
 	Stopwatch_M.errorStatus = &errorStatus;
 
   /* init state machine */
-	Stopwatch_initialize(
+    Stopwatch_initialize(
 		&Stopwatch_M,
 		&timer_tick,
 		buttons,

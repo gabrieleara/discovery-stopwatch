@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Stopwatch'.
  *
- * Model version                  : 1.20
- * Simulink Coder version         : 8.11 (R2016b) 25-Aug-2016
- * C/C++ source code generated on : Sat Dec 17 12:28:18 2016
+ * Model version                  : 1.21
+ * Simulink Coder version         : 8.13 (R2017b) 24-Jul-2017
+ * C/C++ source code generated on : Sat Oct  7 17:35:39 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Stopwatch'.
  *
- * Model version                  : 1.20
- * Simulink Coder version         : 8.11 (R2016b) 25-Aug-2016
- * C/C++ source code generated on : Sat Dec 17 12:28:18 2016
+ * Model version                  : 1.21
+ * Simulink Coder version         : 8.13 (R2017b) 24-Jul-2017
+ * C/C++ source code generated on : Sat Oct  7 17:35:39 2017
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: Intel->x86-64 (Windows64)
@@ -54,10 +54,6 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
   *Stopwatch_Y_minutes, uint8_T *Stopwatch_Y_seconds, uint8_T
   *Stopwatch_Y_tenths, uint8_T *Stopwatch_Y_mode, uint8_T
   *Stopwatch_Y_blink_hours, DW_Stopwatch_T *Stopwatch_DW);
-static void Stopwatch_timemode(uint8_T *Stopwatch_Y_hours, uint8_T
-  *Stopwatch_Y_minutes, uint8_T *Stopwatch_Y_seconds, uint8_T
-  *Stopwatch_Y_tenths, uint8_T *Stopwatch_Y_mode, uint8_T
-  *Stopwatch_Y_blink_hours, DW_Stopwatch_T *Stopwatch_DW);
 static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T *
   Stopwatch_Y_minutes, uint8_T *Stopwatch_Y_blink_hours, uint8_T
   *Stopwatch_Y_blink_minutes, DW_Stopwatch_T *Stopwatch_DW);
@@ -78,6 +74,9 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
   *Stopwatch_Y_tenths, uint8_T *Stopwatch_Y_mode, uint8_T
   *Stopwatch_Y_blink_hours, DW_Stopwatch_T *Stopwatch_DW)
 {
+  /* Outport: '<Root>/mode' */
+  *Stopwatch_Y_mode = 3U;
+
   /* During 'stopwatchmode': '<S2>:7' */
   /* '<S2>:38:1' sf_internal_predicateOutput = ... */
   /* '<S2>:38:1' timeset; */
@@ -99,13 +98,16 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
 
     Stopwatch_DW->is_Control = Stopwatch_IN_timesetmode;
 
+    /* Outport: '<Root>/mode' */
     /* Entry 'timesetmode': '<S2>:5' */
     /* '<S2>:5:1' dmode = uint8(1); */
     *Stopwatch_Y_mode = 1U;
 
+    /* Outport: '<Root>/hours' */
     /* '<S2>:5:1' dhours = hours; */
     *Stopwatch_Y_hours = Stopwatch_DW->hours;
 
+    /* Outport: '<Root>/minutes' */
     /* '<S2>:5:1' dminutes = minutes; */
     *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
 
@@ -113,6 +115,7 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
     /* Transition: '<S2>:84' */
     Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
 
+    /* Outport: '<Root>/blink_hours' */
     /* Entry 'setHours': '<S2>:71' */
     /* '<S2>:71:1' blink_hours = uint8(1); */
     *Stopwatch_Y_blink_hours = 1U;
@@ -137,13 +140,16 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
 
     Stopwatch_DW->is_Control = Stopwatch_IN_alarmmode;
 
+    /* Outport: '<Root>/mode' */
     /* Entry 'alarmmode': '<S2>:6' */
     /* '<S2>:6:1' dmode = uint8(2); */
     *Stopwatch_Y_mode = 2U;
 
+    /* Outport: '<Root>/hours' */
     /* '<S2>:6:1' dhours = alarm_hours; */
     *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
 
+    /* Outport: '<Root>/minutes' */
     /* '<S2>:6:2' dminutes = alarm_minutes; */
     *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
 
@@ -151,6 +157,7 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
     /* Transition: '<S2>:96' */
     Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
 
+    /* Outport: '<Root>/blink_hours' */
     /* Entry 'setAlarmHours': '<S2>:93' */
     /* '<S2>:93:1' blink_hours = uint8(1); */
     *Stopwatch_Y_blink_hours = 1U;
@@ -188,15 +195,19 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
     /* '<S2>:133:2' s_tenths = uint8(0); */
     Stopwatch_DW->s_tenths = 0U;
 
+    /* Outport: '<Root>/tenths' */
     /* '<S2>:133:2' dtenths = s_tenths; */
     *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
 
+    /* Outport: '<Root>/seconds' */
     /* '<S2>:133:2' dseconds = s_seconds; */
     *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
 
+    /* Outport: '<Root>/minutes' */
     /* '<S2>:133:2' dminutes = s_minutes; */
     *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
 
+    /* Outport: '<Root>/hours' */
     /* '<S2>:133:2' dhours = s_hours; */
     *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
     break;
@@ -253,16 +264,20 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
         Stopwatch_DW->s_running = 0U;
         Stopwatch_DW->is_stopwatchmode = Stopwatch_IN_stopwatchPaused;
 
+        /* Outport: '<Root>/tenths' */
         /* Entry 'stopwatchPaused': '<S2>:226' */
         /* '<S2>:226:1' dtenths = s_tenths; */
         *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
 
+        /* Outport: '<Root>/seconds' */
         /* '<S2>:226:1' dseconds = s_seconds; */
         *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
 
+        /* Outport: '<Root>/minutes' */
         /* '<S2>:226:2' dminutes = s_minutes; */
         *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
 
+        /* Outport: '<Root>/hours' */
         /* '<S2>:226:2' dhours = s_hours; */
         *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
       } else if (Stopwatch_DW->is_stopwatchRunning == Stopwatch_IN_running) {
@@ -273,15 +288,19 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
           /* Transition: '<S2>:222' */
           Stopwatch_DW->is_stopwatchRunning = Stopwatch_IN_showLap;
         } else {
+          /* Outport: '<Root>/tenths' */
           /* '<S2>:138:1' dtenths = s_tenths; */
           *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
 
+          /* Outport: '<Root>/seconds' */
           /* '<S2>:138:1' dseconds = s_seconds; */
           *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
 
+          /* Outport: '<Root>/minutes' */
           /* '<S2>:138:2' dminutes = s_minutes; */
           *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
 
+          /* Outport: '<Root>/hours' */
           /* '<S2>:138:2' dhours = s_hours; */
           *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
         }
@@ -301,120 +320,6 @@ static void Stopwatch_stopwatchmode(uint8_T *Stopwatch_Y_hours, uint8_T
 }
 
 /* Function for Chart: '<S1>/Stopwatch' */
-static void Stopwatch_timemode(uint8_T *Stopwatch_Y_hours, uint8_T
-  *Stopwatch_Y_minutes, uint8_T *Stopwatch_Y_seconds, uint8_T
-  *Stopwatch_Y_tenths, uint8_T *Stopwatch_Y_mode, uint8_T
-  *Stopwatch_Y_blink_hours, DW_Stopwatch_T *Stopwatch_DW)
-{
-  /* During 'timemode': '<S2>:60' */
-  /* '<S2>:36:1' sf_internal_predicateOutput = ... */
-  /* '<S2>:36:1' timeset; */
-  switch (Stopwatch_DW->sfEvent) {
-   case Stopwatch_event_timeset:
-    /* Transition: '<S2>:36' */
-    Stopwatch_DW->is_Control = Stopwatch_IN_timesetmode;
-
-    /* Entry 'timesetmode': '<S2>:5' */
-    /* '<S2>:5:1' dmode = uint8(1); */
-    *Stopwatch_Y_mode = 1U;
-
-    /* '<S2>:5:1' dhours = hours; */
-    *Stopwatch_Y_hours = Stopwatch_DW->hours;
-
-    /* '<S2>:5:1' dminutes = minutes; */
-    *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
-
-    /* Entry Internal 'timesetmode': '<S2>:5' */
-    /* Transition: '<S2>:84' */
-    Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
-
-    /* Entry 'setHours': '<S2>:71' */
-    /* '<S2>:71:1' blink_hours = uint8(1); */
-    *Stopwatch_Y_blink_hours = 1U;
-    break;
-
-   case Stopwatch_event_stopwatch:
-    /* '<S2>:237:1' sf_internal_predicateOutput = ... */
-    /* '<S2>:237:1' stopwatch; */
-    /* Transition: '<S2>:237' */
-    Stopwatch_DW->is_Control = Stopwatch_IN_stopwatchmode;
-
-    /* Entry 'stopwatchmode': '<S2>:7' */
-    /* '<S2>:7:1' dmode = uint8(3); */
-    *Stopwatch_Y_mode = 3U;
-
-    /* Entry Internal 'stopwatchmode': '<S2>:7' */
-    /* Transition: '<S2>:135' */
-    Stopwatch_DW->is_stopwatchmode = Stopwatch_IN_stopwatchOff;
-
-    /* Entry 'stopwatchOff': '<S2>:133' */
-    /* '<S2>:133:1' s_hours = uint8(0); */
-    Stopwatch_DW->s_hours = 0U;
-
-    /* '<S2>:133:1' s_minutes = uint8(0); */
-    Stopwatch_DW->s_minutes = 0U;
-
-    /* '<S2>:133:2' s_seconds = uint8(0); */
-    Stopwatch_DW->s_seconds = 0U;
-
-    /* '<S2>:133:2' s_tenths = uint8(0); */
-    Stopwatch_DW->s_tenths = 0U;
-
-    /* '<S2>:133:2' dtenths = s_tenths; */
-    *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
-
-    /* '<S2>:133:2' dseconds = s_seconds; */
-    *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
-
-    /* '<S2>:133:2' dminutes = s_minutes; */
-    *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
-
-    /* '<S2>:133:2' dhours = s_hours; */
-    *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
-    break;
-
-   case Stopwatch_event_alarm:
-    /* '<S2>:40:1' sf_internal_predicateOutput = ... */
-    /* '<S2>:40:1' alarm; */
-    /* Transition: '<S2>:40' */
-    Stopwatch_DW->is_Control = Stopwatch_IN_alarmmode;
-
-    /* Entry 'alarmmode': '<S2>:6' */
-    /* '<S2>:6:1' dmode = uint8(2); */
-    *Stopwatch_Y_mode = 2U;
-
-    /* '<S2>:6:1' dhours = alarm_hours; */
-    *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
-
-    /* '<S2>:6:2' dminutes = alarm_minutes; */
-    *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
-
-    /* Entry Internal 'alarmmode': '<S2>:6' */
-    /* Transition: '<S2>:96' */
-    Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-    /* Entry 'setAlarmHours': '<S2>:93' */
-    /* '<S2>:93:1' blink_hours = uint8(1); */
-    *Stopwatch_Y_blink_hours = 1U;
-    break;
-
-   default:
-    /* '<S2>:60:1' dhours = hours; */
-    *Stopwatch_Y_hours = Stopwatch_DW->hours;
-
-    /* '<S2>:60:1' dminutes = minutes; */
-    *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
-
-    /* '<S2>:60:2' dseconds = seconds; */
-    *Stopwatch_Y_seconds = Stopwatch_DW->seconds;
-
-    /* '<S2>:60:2' dtenths = tenths; */
-    *Stopwatch_Y_tenths = Stopwatch_DW->tenths;
-    break;
-  }
-}
-
-/* Function for Chart: '<S1>/Stopwatch' */
 static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T *
   Stopwatch_Y_minutes, uint8_T *Stopwatch_Y_blink_hours, uint8_T
   *Stopwatch_Y_blink_minutes, DW_Stopwatch_T *Stopwatch_DW)
@@ -425,6 +330,7 @@ static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T 
     /* Exit Internal 'alarmmode': '<S2>:6' */
     switch (Stopwatch_DW->is_alarmmode) {
      case Stopwatch_IN_setAlarmHours:
+      /* Outport: '<Root>/blink_hours' */
       /* Exit 'setAlarmHours': '<S2>:93' */
       /* '<S2>:93:1' blink_hours = uint8(0); */
       *Stopwatch_Y_blink_hours = 0U;
@@ -432,6 +338,7 @@ static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T 
       break;
 
      case Stopwatch_IN_setAlarmMinutes:
+      /* Outport: '<Root>/blink_minutes' */
       /* Exit 'setAlarmMinutes': '<S2>:99' */
       /* '<S2>:99:1' blink_minutes = uint8(0); */
       *Stopwatch_Y_blink_minutes = 0U;
@@ -463,6 +370,7 @@ static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T 
     /* Exit Internal 'timesetmode': '<S2>:5' */
     switch (Stopwatch_DW->is_timesetmode) {
      case Stopwatch_IN_setHours:
+      /* Outport: '<Root>/blink_hours' */
       /* Exit 'setHours': '<S2>:71' */
       /* '<S2>:71:1' blink_hours = uint8(0); */
       *Stopwatch_Y_blink_hours = 0U;
@@ -470,6 +378,7 @@ static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T 
       break;
 
      case Stopwatch_IN_setMinutes:
+      /* Outport: '<Root>/blink_minutes' */
       /* Exit 'setMinutes': '<S2>:78' */
       /* '<S2>:78:1' blink_minutes = uint8(0); */
       *Stopwatch_Y_blink_minutes = 0U;
@@ -477,10 +386,12 @@ static void Stopwatch_exit_internal_Control(uint8_T *Stopwatch_Y_hours, uint8_T 
       break;
     }
 
+    /* Outport: '<Root>/hours' */
     /* Exit 'timesetmode': '<S2>:5' */
     /* '<S2>:5:2' hours = dhours; */
     Stopwatch_DW->hours = *Stopwatch_Y_hours;
 
+    /* Outport: '<Root>/minutes' */
     /* '<S2>:5:2' minutes = dminutes; */
     Stopwatch_DW->minutes = *Stopwatch_Y_minutes;
     Stopwatch_DW->is_Control = Stopwatch_IN_NO_ACTIVE_CHILD;
@@ -499,8 +410,8 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
   *Stopwatch_Y_blink_hours, uint8_T *Stopwatch_Y_blink_minutes, DW_Stopwatch_T
   *Stopwatch_DW)
 {
-  int32_T tmp;
   uint32_T qY;
+  int32_T tmp;
 
   /* During 'Control': '<S2>:1' */
   /* '<S2>:62:1' sf_internal_predicateOutput = ... */
@@ -511,12 +422,16 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
       Stopwatch_Y_blink_hours, Stopwatch_Y_blink_minutes, Stopwatch_DW);
     Stopwatch_DW->is_Control = Stopwatch_IN_timemode;
 
+    /* Outport: '<Root>/mode' */
     /* Entry 'timemode': '<S2>:60' */
     /* '<S2>:60:1' dmode = uint8(0); */
     *Stopwatch_Y_mode = 0U;
   } else {
     switch (Stopwatch_DW->is_Control) {
      case Stopwatch_IN_alarmmode:
+      /* Outport: '<Root>/mode' */
+      *Stopwatch_Y_mode = 2U;
+
       /* During 'alarmmode': '<S2>:6' */
       /* '<S2>:39:1' sf_internal_predicateOutput = ... */
       /* '<S2>:39:1' timeset; */
@@ -526,6 +441,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
         /* Exit Internal 'alarmmode': '<S2>:6' */
         switch (Stopwatch_DW->is_alarmmode) {
          case Stopwatch_IN_setAlarmHours:
+          /* Outport: '<Root>/blink_hours' */
           /* Exit 'setAlarmHours': '<S2>:93' */
           /* '<S2>:93:1' blink_hours = uint8(0); */
           *Stopwatch_Y_blink_hours = 0U;
@@ -533,6 +449,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
           break;
 
          case Stopwatch_IN_setAlarmMinutes:
+          /* Outport: '<Root>/blink_minutes' */
           /* Exit 'setAlarmMinutes': '<S2>:99' */
           /* '<S2>:99:1' blink_minutes = uint8(0); */
           *Stopwatch_Y_blink_minutes = 0U;
@@ -542,13 +459,16 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
 
         Stopwatch_DW->is_Control = Stopwatch_IN_timesetmode;
 
+        /* Outport: '<Root>/mode' */
         /* Entry 'timesetmode': '<S2>:5' */
         /* '<S2>:5:1' dmode = uint8(1); */
         *Stopwatch_Y_mode = 1U;
 
+        /* Outport: '<Root>/hours' */
         /* '<S2>:5:1' dhours = hours; */
         *Stopwatch_Y_hours = Stopwatch_DW->hours;
 
+        /* Outport: '<Root>/minutes' */
         /* '<S2>:5:1' dminutes = minutes; */
         *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
 
@@ -556,6 +476,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
         /* Transition: '<S2>:84' */
         Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
 
+        /* Outport: '<Root>/blink_hours' */
         /* Entry 'setHours': '<S2>:71' */
         /* '<S2>:71:1' blink_hours = uint8(1); */
         *Stopwatch_Y_blink_hours = 1U;
@@ -568,6 +489,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
         /* Exit Internal 'alarmmode': '<S2>:6' */
         switch (Stopwatch_DW->is_alarmmode) {
          case Stopwatch_IN_setAlarmHours:
+          /* Outport: '<Root>/blink_hours' */
           /* Exit 'setAlarmHours': '<S2>:93' */
           /* '<S2>:93:1' blink_hours = uint8(0); */
           *Stopwatch_Y_blink_hours = 0U;
@@ -575,6 +497,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
           break;
 
          case Stopwatch_IN_setAlarmMinutes:
+          /* Outport: '<Root>/blink_minutes' */
           /* Exit 'setAlarmMinutes': '<S2>:99' */
           /* '<S2>:99:1' blink_minutes = uint8(0); */
           *Stopwatch_Y_blink_minutes = 0U;
@@ -584,6 +507,7 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
 
         Stopwatch_DW->is_Control = Stopwatch_IN_stopwatchmode;
 
+        /* Outport: '<Root>/mode' */
         /* Entry 'stopwatchmode': '<S2>:7' */
         /* '<S2>:7:1' dmode = uint8(3); */
         *Stopwatch_Y_mode = 3U;
@@ -605,30 +529,53 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
         /* '<S2>:133:2' s_tenths = uint8(0); */
         Stopwatch_DW->s_tenths = 0U;
 
+        /* Outport: '<Root>/tenths' */
         /* '<S2>:133:2' dtenths = s_tenths; */
         *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
 
+        /* Outport: '<Root>/seconds' */
         /* '<S2>:133:2' dseconds = s_seconds; */
         *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
 
+        /* Outport: '<Root>/minutes' */
         /* '<S2>:133:2' dminutes = s_minutes; */
         *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
 
+        /* Outport: '<Root>/hours' */
         /* '<S2>:133:2' dhours = s_hours; */
         *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
         break;
 
        default:
+        /* Outport: '<Root>/hours' */
         /* '<S2>:6:2' dhours = alarm_hours; */
         *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
 
+        /* Outport: '<Root>/minutes' */
         /* '<S2>:6:2' dminutes = alarm_minutes; */
         *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
         if (Stopwatch_DW->is_alarmmode == Stopwatch_IN_setAlarmHours) {
           /* During 'setAlarmHours': '<S2>:93' */
-          /* '<S2>:98:1' sf_internal_predicateOutput = ... */
-          /* '<S2>:98:1' bplus; */
-          if (Stopwatch_DW->sfEvent == Stopwatch_event_bplus) {
+          /* '<S2>:101:1' sf_internal_predicateOutput = ... */
+          /* '<S2>:101:1' alarm; */
+          switch (Stopwatch_DW->sfEvent) {
+           case Stopwatch_event_alarm:
+            /* Outport: '<Root>/blink_hours' */
+            /* Transition: '<S2>:101' */
+            /* Exit 'setAlarmHours': '<S2>:93' */
+            /* '<S2>:93:1' blink_hours = uint8(0); */
+            *Stopwatch_Y_blink_hours = 0U;
+            Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmMinutes;
+
+            /* Outport: '<Root>/blink_minutes' */
+            /* Entry 'setAlarmMinutes': '<S2>:99' */
+            /* '<S2>:99:1' blink_minutes = uint8(1); */
+            *Stopwatch_Y_blink_minutes = 1U;
+            break;
+
+           case Stopwatch_event_bplus:
+            /* '<S2>:98:1' sf_internal_predicateOutput = ... */
+            /* '<S2>:98:1' bplus; */
             /* Transition: '<S2>:98' */
             /* '<S2>:98:1' alarm_hours = mod(alarm_hours + 1, 24) */
             tmp = (int32_T)(Stopwatch_DW->alarm_hours + 1U);
@@ -638,15 +585,9 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
 
             Stopwatch_DW->alarm_hours = (uint8_T)((uint32_T)(uint8_T)tmp -
               (uint8_T)((uint8_T)tmp / 24U * 24U));
+            break;
 
-            /* Exit 'setAlarmHours': '<S2>:93' */
-            /* '<S2>:93:1' blink_hours = uint8(0); */
-            Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-            /* Entry 'setAlarmHours': '<S2>:93' */
-            /* '<S2>:93:1' blink_hours = uint8(1); */
-            *Stopwatch_Y_blink_hours = 1U;
-          } else {
+           default:
             /* '<S2>:97:1' sf_internal_predicateOutput = ... */
             /* '<S2>:97:1' (bminus) && (alarm_hours == 0); */
             if ((Stopwatch_DW->sfEvent == Stopwatch_event_bminus) &&
@@ -654,19 +595,10 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               /* Transition: '<S2>:97' */
               /* '<S2>:97:1' alarm_hours = uint8(23) */
               Stopwatch_DW->alarm_hours = 23U;
-
-              /* Exit 'setAlarmHours': '<S2>:93' */
-              /* '<S2>:93:1' blink_hours = uint8(0); */
-              Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-              /* Entry 'setAlarmHours': '<S2>:93' */
-              /* '<S2>:93:1' blink_hours = uint8(1); */
-              *Stopwatch_Y_blink_hours = 1U;
             } else {
               /* '<S2>:103:1' sf_internal_predicateOutput = ... */
               /* '<S2>:103:1' bminus; */
-              switch (Stopwatch_DW->sfEvent) {
-               case Stopwatch_event_bminus:
+              if (Stopwatch_DW->sfEvent == Stopwatch_event_bminus) {
                 /* Transition: '<S2>:103' */
                 /* '<S2>:103:1' alarm_hours = alarm_hours - 1 */
                 qY = Stopwatch_DW->alarm_hours - /*MW:OvSatOk*/ 1U;
@@ -675,37 +607,32 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
                 }
 
                 Stopwatch_DW->alarm_hours = (uint8_T)qY;
-
-                /* Exit 'setAlarmHours': '<S2>:93' */
-                /* '<S2>:93:1' blink_hours = uint8(0); */
-                Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-                /* Entry 'setAlarmHours': '<S2>:93' */
-                /* '<S2>:93:1' blink_hours = uint8(1); */
-                *Stopwatch_Y_blink_hours = 1U;
-                break;
-
-               case Stopwatch_event_alarm:
-                /* '<S2>:101:1' sf_internal_predicateOutput = ... */
-                /* '<S2>:101:1' alarm; */
-                /* Transition: '<S2>:101' */
-                /* Exit 'setAlarmHours': '<S2>:93' */
-                /* '<S2>:93:1' blink_hours = uint8(0); */
-                *Stopwatch_Y_blink_hours = 0U;
-                Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmMinutes;
-
-                /* Entry 'setAlarmMinutes': '<S2>:99' */
-                /* '<S2>:99:1' blink_minutes = uint8(1); */
-                *Stopwatch_Y_blink_minutes = 1U;
-                break;
               }
             }
+            break;
           }
         } else {
           /* During 'setAlarmMinutes': '<S2>:99' */
-          /* '<S2>:100:1' sf_internal_predicateOutput = ... */
-          /* '<S2>:100:1' bplus; */
-          if (Stopwatch_DW->sfEvent == Stopwatch_event_bplus) {
+          /* '<S2>:102:1' sf_internal_predicateOutput = ... */
+          /* '<S2>:102:1' alarm; */
+          switch (Stopwatch_DW->sfEvent) {
+           case Stopwatch_event_alarm:
+            /* Outport: '<Root>/blink_minutes' */
+            /* Transition: '<S2>:102' */
+            /* Exit 'setAlarmMinutes': '<S2>:99' */
+            /* '<S2>:99:1' blink_minutes = uint8(0); */
+            *Stopwatch_Y_blink_minutes = 0U;
+            Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
+
+            /* Outport: '<Root>/blink_hours' */
+            /* Entry 'setAlarmHours': '<S2>:93' */
+            /* '<S2>:93:1' blink_hours = uint8(1); */
+            *Stopwatch_Y_blink_hours = 1U;
+            break;
+
+           case Stopwatch_event_bplus:
+            /* '<S2>:100:1' sf_internal_predicateOutput = ... */
+            /* '<S2>:100:1' bplus; */
             /* Transition: '<S2>:100' */
             /* '<S2>:100:1' alarm_minutes = mod(alarm_minutes + 1, 60) */
             tmp = (int32_T)(Stopwatch_DW->alarm_minutes + 1U);
@@ -715,15 +642,9 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
 
             Stopwatch_DW->alarm_minutes = (uint8_T)((uint32_T)(uint8_T)tmp -
               (uint8_T)((uint8_T)tmp / 60U * 60U));
+            break;
 
-            /* Exit 'setAlarmMinutes': '<S2>:99' */
-            /* '<S2>:99:1' blink_minutes = uint8(0); */
-            Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmMinutes;
-
-            /* Entry 'setAlarmMinutes': '<S2>:99' */
-            /* '<S2>:99:1' blink_minutes = uint8(1); */
-            *Stopwatch_Y_blink_minutes = 1U;
-          } else {
+           default:
             /* '<S2>:95:1' sf_internal_predicateOutput = ... */
             /* '<S2>:95:1' (bminus) && (alarm_minutes == 0); */
             if ((Stopwatch_DW->sfEvent == Stopwatch_event_bminus) &&
@@ -731,19 +652,10 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               /* Transition: '<S2>:95' */
               /* '<S2>:95:1' alarm_minutes = uint8(59) */
               Stopwatch_DW->alarm_minutes = 59U;
-
-              /* Exit 'setAlarmMinutes': '<S2>:99' */
-              /* '<S2>:99:1' blink_minutes = uint8(0); */
-              Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmMinutes;
-
-              /* Entry 'setAlarmMinutes': '<S2>:99' */
-              /* '<S2>:99:1' blink_minutes = uint8(1); */
-              *Stopwatch_Y_blink_minutes = 1U;
             } else {
               /* '<S2>:94:1' sf_internal_predicateOutput = ... */
               /* '<S2>:94:1' bminus; */
-              switch (Stopwatch_DW->sfEvent) {
-               case Stopwatch_event_bminus:
+              if (Stopwatch_DW->sfEvent == Stopwatch_event_bminus) {
                 /* Transition: '<S2>:94' */
                 /* '<S2>:94:1' alarm_minutes = alarm_minutes - 1 */
                 qY = Stopwatch_DW->alarm_minutes - /*MW:OvSatOk*/ 1U;
@@ -752,31 +664,9 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
                 }
 
                 Stopwatch_DW->alarm_minutes = (uint8_T)qY;
-
-                /* Exit 'setAlarmMinutes': '<S2>:99' */
-                /* '<S2>:99:1' blink_minutes = uint8(0); */
-                Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmMinutes;
-
-                /* Entry 'setAlarmMinutes': '<S2>:99' */
-                /* '<S2>:99:1' blink_minutes = uint8(1); */
-                *Stopwatch_Y_blink_minutes = 1U;
-                break;
-
-               case Stopwatch_event_alarm:
-                /* '<S2>:102:1' sf_internal_predicateOutput = ... */
-                /* '<S2>:102:1' alarm; */
-                /* Transition: '<S2>:102' */
-                /* Exit 'setAlarmMinutes': '<S2>:99' */
-                /* '<S2>:99:1' blink_minutes = uint8(0); */
-                *Stopwatch_Y_blink_minutes = 0U;
-                Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-                /* Entry 'setAlarmHours': '<S2>:93' */
-                /* '<S2>:93:1' blink_hours = uint8(1); */
-                *Stopwatch_Y_blink_hours = 1U;
-                break;
               }
             }
+            break;
           }
         }
         break;
@@ -790,91 +680,47 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
       break;
 
      case Stopwatch_IN_timemode:
-      Stopwatch_timemode(Stopwatch_Y_hours, Stopwatch_Y_minutes,
-                         Stopwatch_Y_seconds, Stopwatch_Y_tenths,
-                         Stopwatch_Y_mode, Stopwatch_Y_blink_hours, Stopwatch_DW);
-      break;
+      /* Outport: '<Root>/mode' */
+      *Stopwatch_Y_mode = 0U;
 
-     default:
-      /* During 'timesetmode': '<S2>:5' */
-      /* '<S2>:35:1' sf_internal_predicateOutput = ... */
-      /* '<S2>:35:1' alarm; */
+      /* During 'timemode': '<S2>:60' */
+      /* '<S2>:36:1' sf_internal_predicateOutput = ... */
+      /* '<S2>:36:1' timeset; */
       switch (Stopwatch_DW->sfEvent) {
-       case Stopwatch_event_alarm:
-        /* Transition: '<S2>:35' */
-        /* Exit Internal 'timesetmode': '<S2>:5' */
-        switch (Stopwatch_DW->is_timesetmode) {
-         case Stopwatch_IN_setHours:
-          /* Exit 'setHours': '<S2>:71' */
-          /* '<S2>:71:1' blink_hours = uint8(0); */
-          *Stopwatch_Y_blink_hours = 0U;
-          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
-          break;
+       case Stopwatch_event_timeset:
+        /* Transition: '<S2>:36' */
+        Stopwatch_DW->is_Control = Stopwatch_IN_timesetmode;
 
-         case Stopwatch_IN_setMinutes:
-          /* Exit 'setMinutes': '<S2>:78' */
-          /* '<S2>:78:1' blink_minutes = uint8(0); */
-          *Stopwatch_Y_blink_minutes = 0U;
-          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
-          break;
-        }
+        /* Outport: '<Root>/mode' */
+        /* Entry 'timesetmode': '<S2>:5' */
+        /* '<S2>:5:1' dmode = uint8(1); */
+        *Stopwatch_Y_mode = 1U;
 
-        /* Exit 'timesetmode': '<S2>:5' */
-        /* '<S2>:5:2' hours = dhours; */
-        Stopwatch_DW->hours = *Stopwatch_Y_hours;
+        /* Outport: '<Root>/hours' */
+        /* '<S2>:5:1' dhours = hours; */
+        *Stopwatch_Y_hours = Stopwatch_DW->hours;
 
-        /* '<S2>:5:2' minutes = dminutes; */
-        Stopwatch_DW->minutes = *Stopwatch_Y_minutes;
-        Stopwatch_DW->is_Control = Stopwatch_IN_alarmmode;
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:5:1' dminutes = minutes; */
+        *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
 
-        /* Entry 'alarmmode': '<S2>:6' */
-        /* '<S2>:6:1' dmode = uint8(2); */
-        *Stopwatch_Y_mode = 2U;
+        /* Entry Internal 'timesetmode': '<S2>:5' */
+        /* Transition: '<S2>:84' */
+        Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
 
-        /* '<S2>:6:1' dhours = alarm_hours; */
-        *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
-
-        /* '<S2>:6:2' dminutes = alarm_minutes; */
-        *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
-
-        /* Entry Internal 'alarmmode': '<S2>:6' */
-        /* Transition: '<S2>:96' */
-        Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
-
-        /* Entry 'setAlarmHours': '<S2>:93' */
-        /* '<S2>:93:1' blink_hours = uint8(1); */
+        /* Outport: '<Root>/blink_hours' */
+        /* Entry 'setHours': '<S2>:71' */
+        /* '<S2>:71:1' blink_hours = uint8(1); */
         *Stopwatch_Y_blink_hours = 1U;
         break;
 
        case Stopwatch_event_stopwatch:
-        /* '<S2>:37:1' sf_internal_predicateOutput = ... */
-        /* '<S2>:37:1' stopwatch; */
-        /* Transition: '<S2>:37' */
-        /* Exit Internal 'timesetmode': '<S2>:5' */
-        switch (Stopwatch_DW->is_timesetmode) {
-         case Stopwatch_IN_setHours:
-          /* Exit 'setHours': '<S2>:71' */
-          /* '<S2>:71:1' blink_hours = uint8(0); */
-          *Stopwatch_Y_blink_hours = 0U;
-          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
-          break;
-
-         case Stopwatch_IN_setMinutes:
-          /* Exit 'setMinutes': '<S2>:78' */
-          /* '<S2>:78:1' blink_minutes = uint8(0); */
-          *Stopwatch_Y_blink_minutes = 0U;
-          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
-          break;
-        }
-
-        /* Exit 'timesetmode': '<S2>:5' */
-        /* '<S2>:5:2' hours = dhours; */
-        Stopwatch_DW->hours = *Stopwatch_Y_hours;
-
-        /* '<S2>:5:2' minutes = dminutes; */
-        Stopwatch_DW->minutes = *Stopwatch_Y_minutes;
+        /* '<S2>:237:1' sf_internal_predicateOutput = ... */
+        /* '<S2>:237:1' stopwatch; */
+        /* Transition: '<S2>:237' */
         Stopwatch_DW->is_Control = Stopwatch_IN_stopwatchmode;
 
+        /* Outport: '<Root>/mode' */
         /* Entry 'stopwatchmode': '<S2>:7' */
         /* '<S2>:7:1' dmode = uint8(3); */
         *Stopwatch_Y_mode = 3U;
@@ -896,15 +742,202 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
         /* '<S2>:133:2' s_tenths = uint8(0); */
         Stopwatch_DW->s_tenths = 0U;
 
+        /* Outport: '<Root>/tenths' */
         /* '<S2>:133:2' dtenths = s_tenths; */
         *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
 
+        /* Outport: '<Root>/seconds' */
         /* '<S2>:133:2' dseconds = s_seconds; */
         *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
 
+        /* Outport: '<Root>/minutes' */
         /* '<S2>:133:2' dminutes = s_minutes; */
         *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
 
+        /* Outport: '<Root>/hours' */
+        /* '<S2>:133:2' dhours = s_hours; */
+        *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
+        break;
+
+       case Stopwatch_event_alarm:
+        /* '<S2>:40:1' sf_internal_predicateOutput = ... */
+        /* '<S2>:40:1' alarm; */
+        /* Transition: '<S2>:40' */
+        Stopwatch_DW->is_Control = Stopwatch_IN_alarmmode;
+
+        /* Outport: '<Root>/mode' */
+        /* Entry 'alarmmode': '<S2>:6' */
+        /* '<S2>:6:1' dmode = uint8(2); */
+        *Stopwatch_Y_mode = 2U;
+
+        /* Outport: '<Root>/hours' */
+        /* '<S2>:6:1' dhours = alarm_hours; */
+        *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:6:2' dminutes = alarm_minutes; */
+        *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
+
+        /* Entry Internal 'alarmmode': '<S2>:6' */
+        /* Transition: '<S2>:96' */
+        Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
+
+        /* Outport: '<Root>/blink_hours' */
+        /* Entry 'setAlarmHours': '<S2>:93' */
+        /* '<S2>:93:1' blink_hours = uint8(1); */
+        *Stopwatch_Y_blink_hours = 1U;
+        break;
+
+       default:
+        /* Outport: '<Root>/hours' */
+        /* '<S2>:60:1' dhours = hours; */
+        *Stopwatch_Y_hours = Stopwatch_DW->hours;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:60:1' dminutes = minutes; */
+        *Stopwatch_Y_minutes = Stopwatch_DW->minutes;
+
+        /* Outport: '<Root>/seconds' */
+        /* '<S2>:60:2' dseconds = seconds; */
+        *Stopwatch_Y_seconds = Stopwatch_DW->seconds;
+
+        /* Outport: '<Root>/tenths' */
+        /* '<S2>:60:2' dtenths = tenths; */
+        *Stopwatch_Y_tenths = Stopwatch_DW->tenths;
+        break;
+      }
+      break;
+
+     default:
+      /* Outport: '<Root>/mode' */
+      *Stopwatch_Y_mode = 1U;
+
+      /* During 'timesetmode': '<S2>:5' */
+      /* '<S2>:35:1' sf_internal_predicateOutput = ... */
+      /* '<S2>:35:1' alarm; */
+      switch (Stopwatch_DW->sfEvent) {
+       case Stopwatch_event_alarm:
+        /* Transition: '<S2>:35' */
+        /* Exit Internal 'timesetmode': '<S2>:5' */
+        switch (Stopwatch_DW->is_timesetmode) {
+         case Stopwatch_IN_setHours:
+          /* Outport: '<Root>/blink_hours' */
+          /* Exit 'setHours': '<S2>:71' */
+          /* '<S2>:71:1' blink_hours = uint8(0); */
+          *Stopwatch_Y_blink_hours = 0U;
+          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
+          break;
+
+         case Stopwatch_IN_setMinutes:
+          /* Outport: '<Root>/blink_minutes' */
+          /* Exit 'setMinutes': '<S2>:78' */
+          /* '<S2>:78:1' blink_minutes = uint8(0); */
+          *Stopwatch_Y_blink_minutes = 0U;
+          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
+          break;
+        }
+
+        /* Outport: '<Root>/hours' */
+        /* Exit 'timesetmode': '<S2>:5' */
+        /* '<S2>:5:2' hours = dhours; */
+        Stopwatch_DW->hours = *Stopwatch_Y_hours;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:5:2' minutes = dminutes; */
+        Stopwatch_DW->minutes = *Stopwatch_Y_minutes;
+        Stopwatch_DW->is_Control = Stopwatch_IN_alarmmode;
+
+        /* Outport: '<Root>/mode' */
+        /* Entry 'alarmmode': '<S2>:6' */
+        /* '<S2>:6:1' dmode = uint8(2); */
+        *Stopwatch_Y_mode = 2U;
+
+        /* Outport: '<Root>/hours' */
+        /* '<S2>:6:1' dhours = alarm_hours; */
+        *Stopwatch_Y_hours = Stopwatch_DW->alarm_hours;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:6:2' dminutes = alarm_minutes; */
+        *Stopwatch_Y_minutes = Stopwatch_DW->alarm_minutes;
+
+        /* Entry Internal 'alarmmode': '<S2>:6' */
+        /* Transition: '<S2>:96' */
+        Stopwatch_DW->is_alarmmode = Stopwatch_IN_setAlarmHours;
+
+        /* Outport: '<Root>/blink_hours' */
+        /* Entry 'setAlarmHours': '<S2>:93' */
+        /* '<S2>:93:1' blink_hours = uint8(1); */
+        *Stopwatch_Y_blink_hours = 1U;
+        break;
+
+       case Stopwatch_event_stopwatch:
+        /* '<S2>:37:1' sf_internal_predicateOutput = ... */
+        /* '<S2>:37:1' stopwatch; */
+        /* Transition: '<S2>:37' */
+        /* Exit Internal 'timesetmode': '<S2>:5' */
+        switch (Stopwatch_DW->is_timesetmode) {
+         case Stopwatch_IN_setHours:
+          /* Outport: '<Root>/blink_hours' */
+          /* Exit 'setHours': '<S2>:71' */
+          /* '<S2>:71:1' blink_hours = uint8(0); */
+          *Stopwatch_Y_blink_hours = 0U;
+          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
+          break;
+
+         case Stopwatch_IN_setMinutes:
+          /* Outport: '<Root>/blink_minutes' */
+          /* Exit 'setMinutes': '<S2>:78' */
+          /* '<S2>:78:1' blink_minutes = uint8(0); */
+          *Stopwatch_Y_blink_minutes = 0U;
+          Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
+          break;
+        }
+
+        /* Outport: '<Root>/hours' */
+        /* Exit 'timesetmode': '<S2>:5' */
+        /* '<S2>:5:2' hours = dhours; */
+        Stopwatch_DW->hours = *Stopwatch_Y_hours;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:5:2' minutes = dminutes; */
+        Stopwatch_DW->minutes = *Stopwatch_Y_minutes;
+        Stopwatch_DW->is_Control = Stopwatch_IN_stopwatchmode;
+
+        /* Outport: '<Root>/mode' */
+        /* Entry 'stopwatchmode': '<S2>:7' */
+        /* '<S2>:7:1' dmode = uint8(3); */
+        *Stopwatch_Y_mode = 3U;
+
+        /* Entry Internal 'stopwatchmode': '<S2>:7' */
+        /* Transition: '<S2>:135' */
+        Stopwatch_DW->is_stopwatchmode = Stopwatch_IN_stopwatchOff;
+
+        /* Entry 'stopwatchOff': '<S2>:133' */
+        /* '<S2>:133:1' s_hours = uint8(0); */
+        Stopwatch_DW->s_hours = 0U;
+
+        /* '<S2>:133:1' s_minutes = uint8(0); */
+        Stopwatch_DW->s_minutes = 0U;
+
+        /* '<S2>:133:2' s_seconds = uint8(0); */
+        Stopwatch_DW->s_seconds = 0U;
+
+        /* '<S2>:133:2' s_tenths = uint8(0); */
+        Stopwatch_DW->s_tenths = 0U;
+
+        /* Outport: '<Root>/tenths' */
+        /* '<S2>:133:2' dtenths = s_tenths; */
+        *Stopwatch_Y_tenths = Stopwatch_DW->s_tenths;
+
+        /* Outport: '<Root>/seconds' */
+        /* '<S2>:133:2' dseconds = s_seconds; */
+        *Stopwatch_Y_seconds = Stopwatch_DW->s_seconds;
+
+        /* Outport: '<Root>/minutes' */
+        /* '<S2>:133:2' dminutes = s_minutes; */
+        *Stopwatch_Y_minutes = Stopwatch_DW->s_minutes;
+
+        /* Outport: '<Root>/hours' */
         /* '<S2>:133:2' dhours = s_hours; */
         *Stopwatch_Y_hours = Stopwatch_DW->s_hours;
         break;
@@ -912,9 +945,27 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
        default:
         if (Stopwatch_DW->is_timesetmode == Stopwatch_IN_setHours) {
           /* During 'setHours': '<S2>:71' */
-          /* '<S2>:75:1' sf_internal_predicateOutput = ... */
-          /* '<S2>:75:1' bplus; */
-          if (Stopwatch_DW->sfEvent == Stopwatch_event_bplus) {
+          /* '<S2>:82:1' sf_internal_predicateOutput = ... */
+          /* '<S2>:82:1' timeset; */
+          switch (Stopwatch_DW->sfEvent) {
+           case Stopwatch_event_timeset:
+            /* Outport: '<Root>/blink_hours' */
+            /* Transition: '<S2>:82' */
+            /* Exit 'setHours': '<S2>:71' */
+            /* '<S2>:71:1' blink_hours = uint8(0); */
+            *Stopwatch_Y_blink_hours = 0U;
+            Stopwatch_DW->is_timesetmode = Stopwatch_IN_setMinutes;
+
+            /* Outport: '<Root>/blink_minutes' */
+            /* Entry 'setMinutes': '<S2>:78' */
+            /* '<S2>:78:1' blink_minutes = uint8(1); */
+            *Stopwatch_Y_blink_minutes = 1U;
+            break;
+
+           case Stopwatch_event_bplus:
+            /* Outport: '<Root>/hours' */
+            /* '<S2>:75:1' sf_internal_predicateOutput = ... */
+            /* '<S2>:75:1' bplus; */
             /* Transition: '<S2>:75' */
             /* '<S2>:75:1' dhours = mod(dhours + 1, 24) */
             tmp = (int32_T)(*Stopwatch_Y_hours + 1U);
@@ -922,17 +973,13 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               tmp = 255;
             }
 
+            /* Outport: '<Root>/hours' */
             *Stopwatch_Y_hours = (uint8_T)((uint32_T)(uint8_T)tmp - (uint8_T)
               ((uint8_T)tmp / 24U * 24U));
+            break;
 
-            /* Exit 'setHours': '<S2>:71' */
-            /* '<S2>:71:1' blink_hours = uint8(0); */
-            Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
-
-            /* Entry 'setHours': '<S2>:71' */
-            /* '<S2>:71:1' blink_hours = uint8(1); */
-            *Stopwatch_Y_blink_hours = 1U;
-          } else {
+           default:
+            /* Outport: '<Root>/hours' */
             /* '<S2>:76:1' sf_internal_predicateOutput = ... */
             /* '<S2>:76:1' (bminus) && (dhours == 0); */
             if ((Stopwatch_DW->sfEvent == Stopwatch_event_bminus) &&
@@ -940,19 +987,10 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               /* Transition: '<S2>:76' */
               /* '<S2>:76:1' dhours = uint8(23) */
               *Stopwatch_Y_hours = 23U;
-
-              /* Exit 'setHours': '<S2>:71' */
-              /* '<S2>:71:1' blink_hours = uint8(0); */
-              Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
-
-              /* Entry 'setHours': '<S2>:71' */
-              /* '<S2>:71:1' blink_hours = uint8(1); */
-              *Stopwatch_Y_blink_hours = 1U;
             } else {
               /* '<S2>:90:1' sf_internal_predicateOutput = ... */
               /* '<S2>:90:1' bminus; */
-              switch (Stopwatch_DW->sfEvent) {
-               case Stopwatch_event_bminus:
+              if (Stopwatch_DW->sfEvent == Stopwatch_event_bminus) {
                 /* Transition: '<S2>:90' */
                 /* '<S2>:90:1' dhours = dhours - 1 */
                 qY = *Stopwatch_Y_hours - /*MW:OvSatOk*/ 1U;
@@ -961,37 +999,33 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
                 }
 
                 *Stopwatch_Y_hours = (uint8_T)qY;
-
-                /* Exit 'setHours': '<S2>:71' */
-                /* '<S2>:71:1' blink_hours = uint8(0); */
-                Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
-
-                /* Entry 'setHours': '<S2>:71' */
-                /* '<S2>:71:1' blink_hours = uint8(1); */
-                *Stopwatch_Y_blink_hours = 1U;
-                break;
-
-               case Stopwatch_event_timeset:
-                /* '<S2>:82:1' sf_internal_predicateOutput = ... */
-                /* '<S2>:82:1' timeset; */
-                /* Transition: '<S2>:82' */
-                /* Exit 'setHours': '<S2>:71' */
-                /* '<S2>:71:1' blink_hours = uint8(0); */
-                *Stopwatch_Y_blink_hours = 0U;
-                Stopwatch_DW->is_timesetmode = Stopwatch_IN_setMinutes;
-
-                /* Entry 'setMinutes': '<S2>:78' */
-                /* '<S2>:78:1' blink_minutes = uint8(1); */
-                *Stopwatch_Y_blink_minutes = 1U;
-                break;
               }
             }
+            break;
           }
         } else {
           /* During 'setMinutes': '<S2>:78' */
-          /* '<S2>:80:1' sf_internal_predicateOutput = ... */
-          /* '<S2>:80:1' bplus; */
-          if (Stopwatch_DW->sfEvent == Stopwatch_event_bplus) {
+          /* '<S2>:81:1' sf_internal_predicateOutput = ... */
+          /* '<S2>:81:1' timeset; */
+          switch (Stopwatch_DW->sfEvent) {
+           case Stopwatch_event_timeset:
+            /* Outport: '<Root>/blink_minutes' */
+            /* Transition: '<S2>:81' */
+            /* Exit 'setMinutes': '<S2>:78' */
+            /* '<S2>:78:1' blink_minutes = uint8(0); */
+            *Stopwatch_Y_blink_minutes = 0U;
+            Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
+
+            /* Outport: '<Root>/blink_hours' */
+            /* Entry 'setHours': '<S2>:71' */
+            /* '<S2>:71:1' blink_hours = uint8(1); */
+            *Stopwatch_Y_blink_hours = 1U;
+            break;
+
+           case Stopwatch_event_bplus:
+            /* Outport: '<Root>/minutes' */
+            /* '<S2>:80:1' sf_internal_predicateOutput = ... */
+            /* '<S2>:80:1' bplus; */
             /* Transition: '<S2>:80' */
             /* '<S2>:80:1' dminutes = mod(dminutes + 1, 60) */
             tmp = (int32_T)(*Stopwatch_Y_minutes + 1U);
@@ -999,17 +1033,13 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               tmp = 255;
             }
 
+            /* Outport: '<Root>/minutes' */
             *Stopwatch_Y_minutes = (uint8_T)((uint32_T)(uint8_T)tmp - (uint8_T)
               ((uint8_T)tmp / 60U * 60U));
+            break;
 
-            /* Exit 'setMinutes': '<S2>:78' */
-            /* '<S2>:78:1' blink_minutes = uint8(0); */
-            Stopwatch_DW->is_timesetmode = Stopwatch_IN_setMinutes;
-
-            /* Entry 'setMinutes': '<S2>:78' */
-            /* '<S2>:78:1' blink_minutes = uint8(1); */
-            *Stopwatch_Y_blink_minutes = 1U;
-          } else {
+           default:
+            /* Outport: '<Root>/minutes' */
             /* '<S2>:91:1' sf_internal_predicateOutput = ... */
             /* '<S2>:91:1' (bminus) && (dminutes == 0); */
             if ((Stopwatch_DW->sfEvent == Stopwatch_event_bminus) &&
@@ -1017,19 +1047,10 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
               /* Transition: '<S2>:91' */
               /* '<S2>:91:1' dminutes = uint8(59) */
               *Stopwatch_Y_minutes = 59U;
-
-              /* Exit 'setMinutes': '<S2>:78' */
-              /* '<S2>:78:1' blink_minutes = uint8(0); */
-              Stopwatch_DW->is_timesetmode = Stopwatch_IN_setMinutes;
-
-              /* Entry 'setMinutes': '<S2>:78' */
-              /* '<S2>:78:1' blink_minutes = uint8(1); */
-              *Stopwatch_Y_blink_minutes = 1U;
             } else {
               /* '<S2>:92:1' sf_internal_predicateOutput = ... */
               /* '<S2>:92:1' bminus; */
-              switch (Stopwatch_DW->sfEvent) {
-               case Stopwatch_event_bminus:
+              if (Stopwatch_DW->sfEvent == Stopwatch_event_bminus) {
                 /* Transition: '<S2>:92' */
                 /* '<S2>:92:1' dminutes = dminutes - 1 */
                 qY = *Stopwatch_Y_minutes - /*MW:OvSatOk*/ 1U;
@@ -1038,31 +1059,9 @@ static void Stopwatch_Control(uint8_T *Stopwatch_Y_hours, uint8_T
                 }
 
                 *Stopwatch_Y_minutes = (uint8_T)qY;
-
-                /* Exit 'setMinutes': '<S2>:78' */
-                /* '<S2>:78:1' blink_minutes = uint8(0); */
-                Stopwatch_DW->is_timesetmode = Stopwatch_IN_setMinutes;
-
-                /* Entry 'setMinutes': '<S2>:78' */
-                /* '<S2>:78:1' blink_minutes = uint8(1); */
-                *Stopwatch_Y_blink_minutes = 1U;
-                break;
-
-               case Stopwatch_event_timeset:
-                /* '<S2>:81:1' sf_internal_predicateOutput = ... */
-                /* '<S2>:81:1' timeset; */
-                /* Transition: '<S2>:81' */
-                /* Exit 'setMinutes': '<S2>:78' */
-                /* '<S2>:78:1' blink_minutes = uint8(0); */
-                *Stopwatch_Y_blink_minutes = 0U;
-                Stopwatch_DW->is_timesetmode = Stopwatch_IN_setHours;
-
-                /* Entry 'setHours': '<S2>:71' */
-                /* '<S2>:71:1' blink_hours = uint8(1); */
-                *Stopwatch_Y_blink_hours = 1U;
-                break;
               }
             }
+            break;
           }
         }
         break;
@@ -1235,6 +1234,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
       /* Transition: '<S2>:117' */
       Stopwatch_DW->is_Alarmmanage = Stopwatch_IN_alarmOn;
 
+      /* Outport: '<Root>/is_alarm_active' */
       /* Entry 'alarmOn': '<S2>:119' */
       /* '<S2>:119:1' is_alarm_active = uint8(1); */
       *Stopwatch_Y_is_alarm_active = 1U;
@@ -1248,6 +1248,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
         /* Transition: '<S2>:130' */
         Stopwatch_DW->is_alarmOn = Stopwatch_IN_ringing;
 
+        /* Outport: '<Root>/alarm_ringing' */
         /* Entry 'ringing': '<S2>:126' */
         /* '<S2>:126:1' alarm_ringing = uint8(1); */
         *Stopwatch_Y_alarm_ringing = 1U;
@@ -1264,6 +1265,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
       /* Transition: '<S2>:128' */
       /* Exit Internal 'alarmOn': '<S2>:119' */
       if (Stopwatch_DW->is_alarmOn == Stopwatch_IN_ringing) {
+        /* Outport: '<Root>/alarm_ringing' */
         /* Exit 'ringing': '<S2>:126' */
         /* '<S2>:126:1' alarm_ringing = uint8(0); */
         *Stopwatch_Y_alarm_ringing = 0U;
@@ -1274,6 +1276,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
 
       Stopwatch_DW->is_Alarmmanage = Stopwatch_IN_alarmOff;
 
+      /* Outport: '<Root>/is_alarm_active' */
       /* Entry 'alarmOff': '<S2>:104' */
       /* '<S2>:104:1' is_alarm_active = uint8(0); */
       *Stopwatch_Y_is_alarm_active = 0U;
@@ -1289,6 +1292,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
           /* Transition: '<S2>:123' */
           Stopwatch_DW->is_alarmOn = Stopwatch_IN_ringing;
 
+          /* Outport: '<Root>/alarm_ringing' */
           /* Entry 'ringing': '<S2>:126' */
           /* '<S2>:126:1' alarm_ringing = uint8(1); */
           *Stopwatch_Y_alarm_ringing = 1U;
@@ -1300,6 +1304,7 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
         /* '<S2>:233:1' sf_internal_predicateOutput = ... */
         /* '<S2>:233:1' alarm; */
         if (Stopwatch_DW->sfEvent == Stopwatch_event_alarm) {
+          /* Outport: '<Root>/alarm_ringing' */
           /* Transition: '<S2>:233' */
           /* Exit 'ringing': '<S2>:126' */
           /* '<S2>:126:1' alarm_ringing = uint8(0); */
@@ -1307,10 +1312,11 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
           Stopwatch_DW->is_alarmOn = Stop_IN_waiting_next_activation;
         } else {
           /* '<S2>:122:1' sf_internal_predicateOutput = ... */
-          /* '<S2>:122:1' (timer_tick) && (alarm_hours ~= hours || alarm_minutes ~= minutes); */
+          /* '<S2>:122:1' (timer_tick) && (alarm_hours ~= hours && alarm_minutes ~= minutes); */
           if ((Stopwatch_DW->sfEvent == Stopwatch_event_timer_tick) &&
-              ((Stopwatch_DW->alarm_hours != Stopwatch_DW->hours) ||
-               (Stopwatch_DW->alarm_minutes != Stopwatch_DW->minutes))) {
+              (Stopwatch_DW->alarm_hours != Stopwatch_DW->hours) &&
+              (Stopwatch_DW->alarm_minutes != Stopwatch_DW->minutes)) {
+            /* Outport: '<Root>/alarm_ringing' */
             /* Transition: '<S2>:122' */
             /* Exit 'ringing': '<S2>:126' */
             /* '<S2>:126:1' alarm_ringing = uint8(0); */
@@ -1323,10 +1329,10 @@ static void Stopwatc_chartstep_c3_Stopwatch(uint8_T *Stopwatch_Y_hours, uint8_T 
        default:
         /* During 'waiting_next_activation': '<S2>:234' */
         /* '<S2>:235:1' sf_internal_predicateOutput = ... */
-        /* '<S2>:235:1' (timer_tick) && (alarm_hours ~= hours || alarm_minutes ~= minutes); */
+        /* '<S2>:235:1' (timer_tick) && (alarm_hours ~= hours && alarm_minutes ~= minutes); */
         if ((Stopwatch_DW->sfEvent == Stopwatch_event_timer_tick) &&
-            ((Stopwatch_DW->alarm_hours != Stopwatch_DW->hours) ||
-             (Stopwatch_DW->alarm_minutes != Stopwatch_DW->minutes))) {
+            (Stopwatch_DW->alarm_hours != Stopwatch_DW->hours) &&
+            (Stopwatch_DW->alarm_minutes != Stopwatch_DW->minutes)) {
           /* Transition: '<S2>:235' */
           Stopwatch_DW->is_alarmOn = Stopwatch_IN_quiet;
         }
@@ -1575,8 +1581,9 @@ void Stopwatch_initialize(RT_MODEL_Stopwatch_T *const Stopwatch_M, boolean_T
     Stopwatch_DW->is_stopwatchRunning = Stopwatch_IN_NO_ACTIVE_CHILD;
     Stopwatch_DW->is_timesetmode = Stopwatch_IN_NO_ACTIVE_CHILD;
 
-    /* SystemInitialize for Outport: '<Root>/blink_hours' incorporates:
-     *  SystemInitialize for Chart: '<S1>/Stopwatch'
+    /* Outport: '<Root>/blink_hours' incorporates:
+     *  Chart: '<S1>/Stopwatch'
+     *  Chart: '<S1>/Stopwatch'
      */
     /* Entry: Stopwatch/Stopwatch */
     /* Entry Internal: Stopwatch/Stopwatch */
@@ -1584,25 +1591,27 @@ void Stopwatch_initialize(RT_MODEL_Stopwatch_T *const Stopwatch_M, boolean_T
     /* '<S2>:1:1' blink_hours = uint8(0); */
     *Stopwatch_Y_blink_hours = 0U;
 
-    /* SystemInitialize for Outport: '<Root>/blink_minutes' incorporates:
-     *  SystemInitialize for Chart: '<S1>/Stopwatch'
+    /* Outport: '<Root>/blink_minutes' incorporates:
+     *  Chart: '<S1>/Stopwatch'
+     *  Chart: '<S1>/Stopwatch'
      */
     /* '<S2>:1:1' blink_minutes = uint8(0); */
     *Stopwatch_Y_blink_minutes = 0U;
 
-    /* SystemInitialize for Chart: '<S1>/Stopwatch' */
+    /* Chart: '<S1>/Stopwatch' */
     /* Entry Internal 'Control': '<S2>:1' */
     /* Transition: '<S2>:61' */
     Stopwatch_DW->is_Control = Stopwatch_IN_timemode;
 
-    /* SystemInitialize for Outport: '<Root>/mode' incorporates:
-     *  SystemInitialize for Chart: '<S1>/Stopwatch'
+    /* Outport: '<Root>/mode' incorporates:
+     *  Chart: '<S1>/Stopwatch'
+     *  Chart: '<S1>/Stopwatch'
      */
     /* Entry 'timemode': '<S2>:60' */
     /* '<S2>:60:1' dmode = uint8(0); */
     *Stopwatch_Y_mode = 0U;
 
-    /* SystemInitialize for Chart: '<S1>/Stopwatch' */
+    /* Chart: '<S1>/Stopwatch' */
     /* Entry 'Timecount': '<S2>:2' */
     /* '<S2>:2:1' hours = uint8(0); */
     Stopwatch_DW->hours = 0U;
@@ -1638,20 +1647,22 @@ void Stopwatch_initialize(RT_MODEL_Stopwatch_T *const Stopwatch_M, boolean_T
     /* '<S2>:3:1' alarm_minutes = uint8(0); */
     Stopwatch_DW->alarm_minutes = 0U;
 
-    /* SystemInitialize for Outport: '<Root>/alarm_ringing' incorporates:
-     *  SystemInitialize for Chart: '<S1>/Stopwatch'
+    /* Outport: '<Root>/alarm_ringing' incorporates:
+     *  Chart: '<S1>/Stopwatch'
+     *  Chart: '<S1>/Stopwatch'
      */
     /* '<S2>:3:2' is_alarm_active = uint8(0); */
     /* '<S2>:3:2' alarm_ringing = uint8(0); */
     *Stopwatch_Y_alarm_ringing = 0U;
 
-    /* SystemInitialize for Chart: '<S1>/Stopwatch' */
+    /* Chart: '<S1>/Stopwatch' */
     /* Entry Internal 'Alarmmanage': '<S2>:3' */
     /* Transition: '<S2>:105' */
     Stopwatch_DW->is_Alarmmanage = Stopwatch_IN_alarmOff;
 
-    /* SystemInitialize for Outport: '<Root>/is_alarm_active' incorporates:
-     *  SystemInitialize for Chart: '<S1>/Stopwatch'
+    /* Outport: '<Root>/is_alarm_active' incorporates:
+     *  Chart: '<S1>/Stopwatch'
+     *  Chart: '<S1>/Stopwatch'
      */
     /* Entry 'alarmOff': '<S2>:104' */
     /* '<S2>:104:1' is_alarm_active = uint8(0); */
