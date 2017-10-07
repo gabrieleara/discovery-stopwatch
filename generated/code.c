@@ -115,6 +115,7 @@ TASK(TaskLCD)
 		p.x = px;
 		p.y = py;
 		OnTouch(MyWatchScr, &p);
+		delay(1);
 	}
 }
 
